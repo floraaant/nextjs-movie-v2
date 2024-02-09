@@ -1,16 +1,17 @@
 import { CardTitle, CardDescription, CardContent, Card } from "@/components/ui/card"
 
-const MovieCard = ({movieImage, movieTitle, movieDescription}:
-    {movieImage: string;
+const MovieCard = ({movieId, movieImage, movieTitle, movieDescription}:
+    {movieId: number;
+    movieImage: string;
         movieTitle: string;
         movieDescription: string;
     }) => {
     return (
         
-        <Card>
+        <Card data-movie-id={movieId} >
             <img
                 alt={movieTitle}
-                className="object-cover w-full rounded-t-lg"
+                className="object-cover w-full rounded-t-lg h-96"
                 src={`https://image.tmdb.org/t/p/original${movieImage}`}
                 style={{
                     objectFit: "cover",

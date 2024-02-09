@@ -1,16 +1,18 @@
 import Link from "next/link"
+import { Metadata } from 'next';
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { CardTitle, CardDescription, CardContent, Card } from "@/components/ui/card"
 import MovieCard from "@/components/movies/movie-card";
 import { Movie } from '@/types/movie'; 
 
+export const metadata: Metadata = {
+  title: 'Discover Your Next Favorite Movie or TV Show',
+};
 
-const API_BASE_URL = 'https://api.themoviedb.org/3/';
-
-const fetchData = async () => {
+const getLastMovies = async () => {
   try {
-    const response = await fetch(`${API_BASE_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`, {
+    const response = await fetch(`${process.env.API_BASE_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -23,7 +25,6 @@ const fetchData = async () => {
     }
 
     const data = await response.json();
-    //console.log(data)
     return data.results;
     
   } catch (error) {
@@ -34,7 +35,7 @@ const fetchData = async () => {
 
 
 export default async function Home() {
-  const data = await fetchData();
+  const data = await getLastMovies();
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -88,9 +89,9 @@ export default async function Home() {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
               {data.length > 0 ? (
                 data.map((Movie:any) => (
-                  <div key={Movie.id}>
-                    <MovieCard movieTitle={Movie.title} movieDescription={Movie.vote_average} movieImage={Movie.poster_path} />
-                  </div>
+                  <Link href={`movies/${Movie.id}`}>
+                    <MovieCard movieId={Movie.id} movieTitle={Movie.title} movieDescription={Movie.vote_average} movieImage={Movie.poster_path} />
+                    </Link>
                 ))
               ) : (
                 <p>Loading...</p>
