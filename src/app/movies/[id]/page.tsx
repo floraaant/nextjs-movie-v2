@@ -6,6 +6,8 @@ import { Suspense } from 'react';
 
 const getMovieById = async (id: number) => {
   try {
+
+    // await new Promise((resolve) => setTimeout(resolve, 3000)); fake delay
     const response = await fetch(`${process.env.API_BASE_URL}movie/${id}`, {
       method: 'GET',
       headers: {
@@ -18,10 +20,9 @@ const getMovieById = async (id: number) => {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
- 
+
     const data = await response.json();
-    
-    return data;  // Retourne l'objet de film complet, pas seulement data.results
+    return data; 
 
   } catch (error) {
     console.error('Error fetching data:', error);
@@ -33,8 +34,6 @@ export default async function Page({ params }: { params: { id: number } }) {
   const id = params.id;
   try {
     const movie = await getMovieById(id);
-    
-
     return (
       <main>
         <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
