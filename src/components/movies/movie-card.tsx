@@ -13,7 +13,7 @@ const MovieCard = ({movieId, movieImage, movieTitle, movieDescription}:
             <Image
                 alt={movieTitle}
                 className="object-cover w-full rounded-t-lg h-96"
-                src={`https://image.tmdb.org/t/p/original${movieImage}`}
+                src={`https://image.tmdb.org/t/p/w500${movieImage}`}
                 width={300}
                 height={300}
             />

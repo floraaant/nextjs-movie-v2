@@ -14,7 +14,7 @@ export async function getLastMovies () {
       }
   
       const data = await response.json();
-      return data.results;
+      return data.results.slice(0, 8);
       
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -40,6 +40,33 @@ export async function getLastMovies () {
       const data = await response.json();
       return data.results;
       
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      throw error;
+    }
+  };
+
+  export async function getMovieById (id: number) {
+    try {
+      // fake delay
+      // await new Promise((resolve) => setTimeout(resolve, 3000)); 
+      const response = await fetch(`${process.env.API_BASE_URL}movie/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${process.env.API_SECRET_KEY}`,
+        },
+        cache: 'force-cache',
+      });
+    
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+  //    console.log(data)
+      return data; 
+  
     } catch (error) {
       console.error('Error fetching data:', error);
       throw error;

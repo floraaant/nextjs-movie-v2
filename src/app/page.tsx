@@ -4,7 +4,6 @@ import MovieCard from "@/components/movies/movie-card";
 import SearchBar from "@/components/ui/searchbar";
 import { getFilteredMovies, getLastMovies } from "@/lib/data";
 import { Suspense } from "react";
-import Loading from "./movies/[id]/loading";
 import BigImageSkeleton from "@/components/ui/skeletons/bigImage";
 
 export const metadata: Metadata = {

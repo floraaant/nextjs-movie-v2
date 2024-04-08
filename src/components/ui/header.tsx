@@ -18,8 +18,8 @@ export default function Header() {
                 <Link className="text-sm font-medium hover:underline underline-offset-4" href="#">
                     TV Shows
                 </Link>
-                <Link className="text-sm font-medium hover:underline underline-offset-4" href="#">
-                    Favorites
+                <Link className="text-sm font-medium hover:underline underline-offset-4" href="/search">
+                    Search
                 </Link>
             </nav>
         </header>)

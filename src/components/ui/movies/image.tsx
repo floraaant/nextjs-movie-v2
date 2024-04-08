@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 const MovieImage = ({moviePath, movieTitle}:
     {
-        moviePath: string;
+    moviePath: string;
     movieTitle: string;
     }) => {
         return(
@@ -21,4 +21,3 @@ const MovieImage = ({moviePath, movieTitle}:
 }
 
 export default MovieImage;
-
