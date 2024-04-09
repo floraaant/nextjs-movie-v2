@@ -1,7 +1,11 @@
+'use client'
 import Link from "next/link"
 import { Movie } from '@/types/movie';
+import { usePathname } from 'next/navigation'
+
 
 export default function Header() {
+    const pathname = usePathname()
     return (
         <header className="px-4 lg:px-6 h-14 flex items-center">
             <Link className="flex items-center justify-center" href="/">
@@ -9,13 +13,13 @@ export default function Header() {
                 <span className="sr-only">MovieDB</span>
             </Link>
             <nav className="ml-auto flex gap-4 sm:gap-6">
-                <Link className="text-sm font-medium hover:underline underline-offset-4" href="#">
+                <Link className={`link ${pathname === '/' ? 'text-sm font-bold hover:underline underline-offset-4' : 'text-sm font-medium hover:underline underline-offset-4'}`} href="/">
                     Home
                 </Link>
-                <Link className="text-sm font-medium hover:underline underline-offset-4" href="#">
+                <Link className={`link ${pathname === '/movies' ? 'text-sm font-bold hover:underline underline-offset-4' : 'text-sm font-medium hover:underline underline-offset-4'}`} href="/movies">
                     Movies
                 </Link>
-                <Link className="text-sm font-medium hover:underline underline-offset-4" href="#">
+                <Link className={`link ${pathname === '/tv-shows' ? 'text-sm font-bold hover:underline underline-offset-4' : 'text-sm font-medium hover:underline underline-offset-4'}`} href="#">
                     TV Shows
                 </Link>
                 <Link className="text-sm font-medium hover:underline underline-offset-4" href="/search">
