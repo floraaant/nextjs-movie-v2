@@ -48,7 +48,7 @@ export async function getLastMovies () {
 
   export async function getMovieById (id: number) {
     try {
-      // fake delay
+      // fake delay 
       // await new Promise((resolve) => setTimeout(resolve, 3000)); 
       const response = await fetch(`${process.env.API_BASE_URL}movie/${id}?language=fr-FR`, {
         method: 'GET',
