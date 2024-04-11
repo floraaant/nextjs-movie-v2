@@ -1,17 +1,10 @@
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import BigImageSkeleton from "@/components/ui/skeletons/bigImage";
 import Pagination from "@/components/ui/pagination";
 import Link from "next/link"
 import MovieCard from "@/components/movies/movie-card";
 import { getMovies } from "@/lib/data";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
-
+import SortBy from "@/components/catalog/sort_by";
 
 export default async function Movies({
     searchParams,
@@ -19,16 +12,20 @@ export default async function Movies({
     searchParams?: {
         query?: string;
         page?: string;
+        sort_by?: string;
     };
 }) {
     const query = searchParams?.query || '';
     const currentPage = Number(searchParams?.page) || 1;
-    const data = await getMovies(currentPage);
+    const currentSort = String(searchParams?.sort_by) || '';
+    const data = await getMovies(currentPage, currentSort);
+    
+
 
     return (
         <div className="flex flex-col min-h-screen">
             <main className="flex-1">
-                <section className="w-full py-6 sm:py-12 md:py-24 lg:py-32">
+                <section className="w-full py-6 sm:py-12 md:py-24 lg:py-16">
                     <div className="container px-4 md:px-6">
                         <div className="">
                             <div className="flex flex-col justify-center space-y-4 w-full">
@@ -37,22 +34,7 @@ export default async function Movies({
                                         Discover Movies
                                     </h1>
                                     <div className="ml-auto">
-                                        <Select>
-                                            <SelectTrigger className="w-[180px]">
-                                                <SelectValue placeholder="Trier par" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                <SelectItem value="popularity.asc">Moins populaire</SelectItem>
-                                                <SelectItem value="popularity.desc">Plus populaire</SelectItem>
-                                                <SelectItem value="revenue.asc">Moins de revenus</SelectItem>
-                                                <SelectItem value="revenue.desc">Plus de revenus</SelectItem>
-                                                <SelectItem value="primary_release_date.asc">Plus vieux</SelectItem>
-                                                <SelectItem value="title.asc">De A à Z</SelectItem>
-                                                <SelectItem value="title.desc">De Z à A</SelectItem>
-                                                <SelectItem value="vote_average.asc">Moins bonne note</SelectItem>
-                                                <SelectItem value="vote_average.desc">Plus bonne note</SelectItem>
-                                           </SelectContent>
-                                        </Select>
+                                        <SortBy />
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +51,7 @@ export default async function Movies({
                         </div>
                     </div>
                     <div className="mt-5 flex w-full justify-center">
-                        <Pagination totalPages={200} />
+                        <Pagination totalPages={8} />
                     </div>
                 </section>
             </main>

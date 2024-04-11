@@ -73,11 +73,11 @@ export async function getLastMovies () {
     }
   };
 
-  export async function getMovies (currentPage: number) {
+  export async function getMovies (currentPage: number, sortBy: string) {
     try {
       // fake delay
       // await new Promise((resolve) => setTimeout(resolve, 3000)); 
-      const response = await fetch(`${process.env.API_BASE_URL}/discover/movie?include_adult=false&include_video=false&language=fr-FR&page=${currentPage}&sort_by=popularity.desc`, {
+      const response = await fetch(`${process.env.API_BASE_URL}/discover/movie?include_adult=false&include_video=false&language=fr-FR&page=${currentPage}&sort_by=${sortBy}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
