@@ -1,10 +1,12 @@
 import Image from 'next/image';
 
-const MovieImage = ({moviePath, movieTitle}:
+export default async function MovieImage({moviePath, movieTitle}:
     {
     moviePath: string;
     movieTitle: string;
-    }) => {
+    }) {
+      // await new Promise((resolve) => setTimeout(resolve, 30000)); 
+
         return(
             <div className="w-6/12 h-full rounded-lg overflow-hidden">
                         
@@ -20,4 +22,3 @@ const MovieImage = ({moviePath, movieTitle}:
         
 }
 
-export default MovieImage;

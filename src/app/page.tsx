@@ -1,26 +1,27 @@
 import Link from "next/link"
 import { Metadata } from 'next';
-import MovieCard from "@/components/movies/movie-card";
 import SearchBar from "@/components/ui/searchbar";
 import { getFilteredMovies, getLastMovies } from "@/lib/data";
 import { Suspense } from "react";
 import BigImageSkeleton from "@/components/ui/skeletons/bigImage";
+import ShowTrendingMovies from "@/components/presets/trending-movies";
+import { SkeletonCard } from "@/components/ui/skeletons/styledSkeletons";
 
 export const metadata: Metadata = {
   title: 'Discover Your Next Favorite Movie or TV Show',
 };
 
 
-export default async function Home({
+export default function Home({
   searchParams,
 }: {
   searchParams?: {
     query?: string
   }
 }) {
-  const query = searchParams?.query || '';
-  const data = await getLastMovies();
-  const searchResults = await getFilteredMovies(query);
+  // const query = searchParams?.query || '';
+  // const data = await getLastMovies();
+  // const searchResults = await getFilteredMovies(query);
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
@@ -41,33 +42,12 @@ export default async function Home({
               </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8 w-full">
-              {searchResults.map((Movie: any) => (
-                <Suspense fallback={<BigImageSkeleton />} >
-                  <Link href={`movies/${Movie.id}`} key={Movie.id}>
-                    <MovieCard movieId={Movie.id} movieTitle={Movie.title} movieDescription={Movie.vote_average} movieImage={Movie.poster_path} />
-                  </Link>
-                </Suspense>
-              ))}
             </div>
           </div>
         </section>
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800">
-          <div className="container px-4 md:px-6">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Trending Movies</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
-
-              {data.length > 0 ? (
-                data.map((Movie: any) => (
-                  <Link href={`movies/${Movie.id}`} key={Movie.id}>
-                    <MovieCard movieId={Movie.id} movieTitle={Movie.title} movieDescription={Movie.vote_average} movieImage={Movie.poster_path} />
-                  </Link>
-                ))
-              ) : (
-                <p>Loading...</p>
-              )}
-            </div>
-          </div>
-        </section>
+        <Suspense fallback={<SkeletonCard />}>
+          <ShowTrendingMovies />
+        </Suspense>
       </main>
     </div>
   );

@@ -30,7 +30,7 @@ export default function SortBy() {
     return (
         <>
             <select value={selectedValue} defaultValue={currentSort} onChange={handleSelectChange} className='appearance-none mr-4'>
-                <option value="">Choisir un filtre</option>
+                <option value="">Choisir un tri</option>
                 <option value="popularity.asc" className='font-bold'>Moins populaire</option>
                 <option value="popularity.desc">Plus populaire</option>
                 <option value="revenue.asc">Moins de revenus</option>
